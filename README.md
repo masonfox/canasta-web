@@ -1,4 +1,5 @@
 # canasta
+A simple [Canasta](https://en.wikipedia.org/wiki/Canasta) calculator for tracking game progress and expediting counting. 
 
 ## Project setup
 ```
