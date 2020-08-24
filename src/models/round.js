@@ -3,4 +3,8 @@ export default class Round (roundNumber, cards) {
         this.roundNumber = roundNumber
         this.cards = cards
     }
+
+    get score () {
+        
+    }
 }

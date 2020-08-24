@@ -7,7 +7,7 @@
                 <th scope="col">N/U</th>
                 <th scope="col">Loose</th>
                 <th scope="col">Remaining</th>
-                <th scope="col" v-if="showScoreColumn">Value</th>
+                <th scope="col" v-if="showScoreColumn">Score</th>
             </tr>
         </thead>
         <tbody>
