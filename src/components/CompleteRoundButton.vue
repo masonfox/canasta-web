@@ -1,5 +1,5 @@
 <template>
-  <b-button size="sm" variant="success" v-b-modal="'round-completed-modal'" :disabled="disabled">Complete Round</b-button>
+  <b-button size="sm" variant="success" v-b-modal="'round-completed-modal'" :disabled="disabled">{{ buttonText }}</b-button>
 </template>
 
 <script>
@@ -9,6 +9,9 @@ export default {
         disabled () {
             // store logic for validating a round
             return false;
+        },
+        buttonText () {
+            return 'Complete Round'
         }
     }
 }

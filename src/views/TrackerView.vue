@@ -2,60 +2,40 @@
   <b-container>
       <b-card no-body>
         <b-card-header class="tracker-header">
-            <h5 class="mb-0">Current Round</h5>
-            <CompleteRoundButton />
+            <h5 class="mb-0">Current Round - {{ RoundNumber }}</h5>
+            <div>
+                <b-button size="sm" variant="light" pill class="mr-2" v-b-modal="'round-settings'">
+                    <b-icon icon="gear"></b-icon>
+                </b-button>
+                <CompleteRoundButton />
+            </div>
         </b-card-header>
-        <b-card-body class="row">
-        <b-col>
-            <table class="table">
-                <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-            </table>
-        </b-col>
-        <b-col>
-            Woot
-        </b-col>
+        <b-card-body class="row py-0 px-0">
+            <RoundTable />
+            <RoundTable :last="true" />
         </b-card-body>
       </b-card>
       <RoundCompletedModal />
+      <RoundSettingsModal />
   </b-container>
 </template>
 
 <script>
 import RoundCompletedModal from '@/components/modals/RoundCompletedModal'
+import RoundSettingsModal from '@/components/modals/RoundSettingsModal'
 import CompleteRoundButton from '@/components/CompleteRoundButton'
+import RoundTable from '@/components/RoundTable'
 
 export default {
     name: 'TrackerView',
+    computed: {
+        RoundNumber: () => { return 1 }
+    },
     components: {
         RoundCompletedModal,
-        CompleteRoundButton
+        CompleteRoundButton,
+        RoundSettingsModal,
+        RoundTable
     },
     methods: {}
 }
