@@ -12,9 +12,5 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  store,
-  created () {
-    store.state.cards[0].recordPlay('natural', 9, 5)
-    console.log('score', store.state.cards[0].score)
-  }
+  store
 }).$mount('#app')

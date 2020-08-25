@@ -3,21 +3,22 @@ export default class Card {
         this.name = name
         this.abbreviation = abbreviation
         this.value = value
-        this.count = {
-            loose: 0,
-            remaining: 0
-        } // for loose and remaining
+        this.loose = 0
+        this.remaining = 0
         this.canasta = null // natural or unatural
     }
 
     recordPlay (canastaType, loose, remaining) {
-        this.canasta = canastaType
-        this.count = {
-            loose,
-            remaining
+        if (canastaType !== null) {
+            let clean = canastaType.toLowerCase()
+            if (clean == "unnatural" || clean == "natural") {
+                this.canasta = clean
+            } else {
+                new Error (`Canasta for ${this.name} cannot be ${canastaType}`)
+            }
         }
-
-        console.log(this)
+        this.loose = loose
+        this.remaining = remaining
     }
 
     get score () {
@@ -26,7 +27,7 @@ export default class Card {
         let remaining = 0
 
         // logic for handling point assignment
-        switch (this.canasta.toLowerCase()) {
+        switch (this.canasta) {
             case null:
                 canasta = 0
                 break
@@ -37,13 +38,13 @@ export default class Card {
                 canasta = 300
         }
 
-        loose = this.value * this.count.loose
+        loose = this.value * this.loose
 
-        remaining = this.value * this.count.remaining
+        remaining = this.value * this.remaining
 
-        if (remaining > 0) { remaining = remaining * -1 }
+        if (remaining > 0 && this.value > 0) { remaining = remaining * -1 }
 
-        console.info (`${this.name}'s values are: ${canasta}, ${loose}, ${remaining}`)
+        // console.info(`${this.name}'s values are: ${canasta}, ${loose}, ${remaining}`)
         
         return {
             canasta,

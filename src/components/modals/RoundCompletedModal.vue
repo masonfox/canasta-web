@@ -15,9 +15,20 @@
 <script>
 export default {
     name: 'RoundCompletedModal',
+    computed: {
+        nextRoundNumber () {
+            return this.$store.getters.nextRoundNumber
+        }
+    },
     methods: {
         handleOk() {
-            console.log('Triggered')
+            console.log(this.nextRoundNumber)
+            if (this.nextRoundNumber !== null) {
+                this.$store.commit('newRound', this.nextRoundNumber)
+            } else {
+                this.$store.commit('endGame')
+                // launch end game modal
+            }
         }
     }
 }
