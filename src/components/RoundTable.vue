@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <template v-for="(card, index) in cards">
-                <CardRow :card="card" :key="index" />
+                <CardRow :card="card" :team="team" :key="index" />
             </template>
         </tbody>
     </table>
@@ -45,6 +45,9 @@ export default {
             // combine data
             return this.$store.state.cards
         }
+    },
+    mounted () {
+        console.log(this.$store.getters.currentRound)
     }
 }
 </script>
@@ -69,7 +72,7 @@ export default {
     }
 
     .nu-select {
-        width: 5.75rem;
+        width: 6.25rem;
     }
 
     input.form-control {

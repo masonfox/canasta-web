@@ -15,8 +15,8 @@
         <td>
             <b-form-input type="number" size="sm" min="0" step="1" v-model="remaining"></b-form-input>
         </td>
-        <td v-show="showScoreColumn">
-            <!-- <pre><code>{{ this.card }}</code></pre> -->
+        <td v-if="showScoreColumn">
+            <!-- <pre><code>{{ this.cardValues }}</code></pre> -->
             <span :class="badge">{{ score }}</span>
         </td>
     </tr>
@@ -29,18 +29,49 @@ export default {
             type: Object,
             required: true
         },
+        team: {
+            type: Object,
+            required: true
+        }
     },
     data () {
         return {
-            canasta: null,
-            loose: 0,
-            remaining: 0,
             options: [{ text: 'None', value: null }, { text: 'Natural', value: 'natural'}, { text: 'Unnatural', value: 'unnatural'}]
         }
     },
     computed: {
+        currentRound () {
+            return this.$store.state.game.currentRound
+        },
+        cardValues () {
+            return this.$store.getters.getCardRoundResults(this.currentRound, this.card.id, this.team.id)
+        },
         score () {
-            return 1
+            return this.$store.getters.getCardRowScore(this.card.id, this.canasta, this.loose, this.remaining).total
+        },
+        canasta: {
+            get() {
+                 return this.cardValues.canasta
+            },
+            set (val) {
+                this.setRoundCardValue("canasta", val)
+            }
+        },
+        loose: {
+            get() {
+                 return this.cardValues.loose
+            },
+            set (val) {
+                this.setRoundCardValue("loose", val)
+            }
+        },
+        remaining: {
+            get() {
+                  return this.cardValues.remaining
+            },
+            set (val) {
+                this.setRoundCardValue("remaining", val)
+            }
         },
         badge () {
             return {
@@ -59,10 +90,10 @@ export default {
         }
     },
     methods: {
-        updateCardValue (type, val) {
+        setRoundCardValue (type, val) {
             this.$store.commit('setRoundCardValue', {
-                teamIndex: this.teamIndex,
-                cardIndex: this.cardIndex,
+                teamId: this.team.id,
+                cardId: this.card.id,
                 type,
                 val
             })
