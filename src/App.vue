@@ -5,6 +5,7 @@
       <LogsView />
       <TrackerView />
     </div>
+    <Modals />
   </div>
 </template>
 
@@ -12,10 +13,11 @@
 import NavBar from '@/components/NavBar'
 import LogsView from '@/views/LogsView'
 import TrackerView from '@/views/TrackerView'
+import Modals from '@/components/Modals'
 
 export default {
   name: 'App',
-  components: { LogsView, TrackerView, NavBar }
+  components: { LogsView, TrackerView, NavBar, Modals }
 }
 </script>
 

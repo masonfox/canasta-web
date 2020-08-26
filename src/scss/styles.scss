@@ -1,2 +1,25 @@
 @import '~bootstrap';
 @import '~bootstrap-vue';
+
+// tables
+.stats-table {
+    margin-bottom: 0;
+
+    thead {
+        border-color: red !important;
+    }
+
+    th {
+        border-bottom: 0 !important;
+    }
+}
+
+// modals
+.settings-table {
+    border: 1px solid #ddd;
+    border-radius: 1rem !important;
+    
+    tr {
+        border-bottom: 1px solid #ddd;
+    }
+}

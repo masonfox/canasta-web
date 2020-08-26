@@ -37,15 +37,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-    .settings-table {
-        border: 1px solid #ddd;
-        border-radius: 1rem !important;
-        
-        tr {
-            border-bottom: 1px solid #ddd;
-        }
-    }
-
-</style>
