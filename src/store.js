@@ -200,7 +200,8 @@ export default new Vuex.Store({
             state.options.showFullCardName = !state.options.showFullCardName
         },
         setRoundCardValue (state, payload) {
-            state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = Number(payload.val)
+            if (payload.type !== "canasta") { payload.val = Number(payload.val) }
+            state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = payload.val
         },
         newRound (state) {
             const roundId = state.game.currentRound + 1
