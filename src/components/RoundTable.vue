@@ -47,7 +47,7 @@ export default {
         }
     },
     mounted () {
-        console.log(this.$store.getters.currentRound)
+        // console.log(this.$store.getters.currentRound)
     }
 }
 </script>

@@ -11,17 +11,17 @@ let cards = {
     2: { id: 2, name: '2', abbreviation: '2', value: 20 },
     3: { id: 3, name: 'Ace', abbreviation: 'A', value: 20 },
     4: { id: 4, name: 'King', abbreviation: 'K', value: 10 },
-    5: { id: 5, name: 'Queen', abbreviation: 'Q', value: 10 },
-    6: { id: 6, name: 'Jack', abbreviation: 'J', value: 10 },
-    7: { id: 7, name: '10', abbreviation: '10', value: 10 },
-    8: { id: 8, name: '9', abbreviation: '9', value: 10 },
-    9: { id: 9, name: '8', abbreviation: '8', value: 10 },
-    10: { id: 10, name: '7', abbreviation: '7', value: 5 },
-    11: { id: 11, name: '6', abbreviation: '6', value: 5 },
-    12: { id: 12, name: '5', abbreviation: '5', value: 5 },
-    13: { id: 13, name: '4', abbreviation: '4', value: 5 },
-    14: { id: 14, name: 'Red 3', abbreviation: 'R 3', value: -500 },
-    15: { id: 15, name: 'Black 3', abbreviation: 'B 3', value: 0 },
+    // 5: { id: 5, name: 'Queen', abbreviation: 'Q', value: 10 },
+    // 6: { id: 6, name: 'Jack', abbreviation: 'J', value: 10 },
+    // 7: { id: 7, name: '10', abbreviation: '10', value: 10 },
+    // 8: { id: 8, name: '9', abbreviation: '9', value: 10 },
+    // 9: { id: 9, name: '8', abbreviation: '8', value: 10 },
+    // 10: { id: 10, name: '7', abbreviation: '7', value: 5 },
+    // 11: { id: 11, name: '6', abbreviation: '6', value: 5 },
+    // 12: { id: 12, name: '5', abbreviation: '5', value: 5 },
+    // 13: { id: 13, name: '4', abbreviation: '4', value: 5 },
+    // 14: { id: 14, name: 'Red 3', abbreviation: 'R 3', value: -500 },
+    // 15: { id: 15, name: 'Black 3', abbreviation: 'B 3', value: 0 },
 }
 
 const data = {
@@ -90,6 +90,29 @@ const Score = {
             remaining,
             total
         }
+    },
+    round (scoreArray) {
+        let score = {
+            canasta: 0,
+            loose: 0,
+            remaining: 0,
+            total: 0
+        }
+
+        for (let index = 0; index < scoreArray.length; index++) {
+            const item = scoreArray[index];
+
+            let { card, canasta, loose, remaining} = item
+            let cardScore = this.card(card, canasta, loose, remaining)
+            
+            // increment items
+            score.canasta += cardScore.canasta
+            score.loose += cardScore.loose
+            score.remaining += cardScore.remaining
+            score.total += cardScore.total
+        }
+
+        return score
     }
 }
 
@@ -126,6 +149,38 @@ export default new Vuex.Store({
         getCardRowScore: (state, getters) => (cardId, canasta, loose, remaining) => {
             return Score.card(getters.getCardById(cardId), canasta, loose, remaining)
         },
+        getRoundResultsByTeam: (state, getters) => (roundId, teamId) => {
+            let cards = getters.getRoundObject(roundId).cards
+            let final = []
+
+            // loop through cards to find each individual cards to build a score object
+            for (const cardId in cards) {
+                let cardObject = cards[cardId]
+                let { canasta, loose, remaining } = cardObject.teams[teamId]
+                let scoreObject = {
+                    card: getters.getCardById(cardObject.id),
+                    canasta,
+                    loose,
+                    remaining
+                }
+                final.push(scoreObject)
+            }
+
+            return Score.round(final)
+        },
+        getRoundScore: (state, getters) => (roundId, teamId) => {
+            return getters.getRoundResultsByTeam(roundId, teamId)
+        },
+        getRoundObject: (state) => (roundId) => {
+            return state.rounds[roundId]
+        },
+        // whoWonRound: (state, getters) => () => {
+        //     let teams = 
+        //     let result = []
+
+        //     return result
+        // },
+        // getGameScore
         currentRound: (state) => {
             return state.rounds[state.game.currentRound]
         },
@@ -152,9 +207,10 @@ export default new Vuex.Store({
             //     loose: 0,
             //     remaining: 0
             // }
-            let cardKeys = Object.keys(state.cards)
 
-            console.log('keys', cardKeys)
+            // let cardKeys = Object.keys(state.cards)
+
+            // console.log('keys', cardKeys)
 
             // state.rounds[roundId] = function () {
             //     let obj = {}
