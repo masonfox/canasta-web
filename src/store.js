@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+const clone = require('lodash/clone')
 // import Game from '@/models/game'
 // import Round from '@/models/round'
 // import Card from '@/models/card'
@@ -199,24 +200,38 @@ export default new Vuex.Store({
             state.options.showFullCardName = !state.options.showFullCardName
         },
         setRoundCardValue (state, payload) {
-            state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = payload.val
+            state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = Number(payload.val)
         },
-        newRound (state, roundId) {
-            // const cardModel = {
-            //     canasta: null,
-            //     loose: 0,
-            //     remaining: 0
-            // }
+        newRound (state) {
+            const roundId = state.game.currentRound + 1
+            const round = { id: roundId, cards: {} }
+            let cardKeys = Object.keys(clone(state.cards))
+            let teamKeys = Object.keys(clone(state.teams))
+            const cardModel = {
+                canasta: null,
+                loose: 0,
+                remaining: 0
+            }
 
-            // let cardKeys = Object.keys(state.cards)
+            // set card keys
+            for (let i = 0; i < cardKeys.length; i++) {
+                let cardId = Number(cardKeys[i])
+                // assign card refs
+                round.cards[cardId] = { id: cardId, teams: {} }
 
-            // console.log('keys', cardKeys)
+                // loop through teams
+                for (let ii = 0; ii < teamKeys.length; ii++) {
+                    const teamId = Number(teamKeys[ii])
+                    // set team
+                    round.cards[cardId].teams[teamId] = cardModel
+                }
+            }
 
-            // state.rounds[roundId] = function () {
-            //     let obj = {}
-            //     obj.id = roundId
-            // }
+            console.log(round)
 
+            // set new round object
+            Vue.set(state.rounds, roundId, round)
+            
             // set the new current round
             state.game.currentRound = roundId
         },

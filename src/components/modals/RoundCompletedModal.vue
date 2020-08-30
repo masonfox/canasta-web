@@ -31,7 +31,8 @@ export default {
         handleOk() {
             console.log(this.nextRoundNumber)
             if (this.nextRoundNumber !== null) {
-                this.$store.commit('newRound', this.nextRoundNumber)
+                console.log('HIT')
+                this.$store.commit('newRound')
             } else {
                 this.$store.commit('endGame')
                 // launch end game modal
