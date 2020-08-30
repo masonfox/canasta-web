@@ -12,5 +12,8 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  store
+  store,
+  created () {
+    this.$store.commit('newRound')
+  }
 }).$mount('#app')

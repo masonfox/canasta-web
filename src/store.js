@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-const clone = require('lodash/clone')
+// const clone = require('lodash/cloneDeep')
 // import Game from '@/models/game'
 // import Round from '@/models/round'
 // import Card from '@/models/card'
@@ -12,51 +12,17 @@ let cards = {
     2: { id: 2, name: '2', abbreviation: '2', value: 20 },
     3: { id: 3, name: 'Ace', abbreviation: 'A', value: 20 },
     4: { id: 4, name: 'King', abbreviation: 'K', value: 10 },
-    // 5: { id: 5, name: 'Queen', abbreviation: 'Q', value: 10 },
-    // 6: { id: 6, name: 'Jack', abbreviation: 'J', value: 10 },
-    // 7: { id: 7, name: '10', abbreviation: '10', value: 10 },
-    // 8: { id: 8, name: '9', abbreviation: '9', value: 10 },
-    // 9: { id: 9, name: '8', abbreviation: '8', value: 10 },
-    // 10: { id: 10, name: '7', abbreviation: '7', value: 5 },
-    // 11: { id: 11, name: '6', abbreviation: '6', value: 5 },
-    // 12: { id: 12, name: '5', abbreviation: '5', value: 5 },
-    // 13: { id: 13, name: '4', abbreviation: '4', value: 5 },
-    // 14: { id: 14, name: 'Red 3', abbreviation: 'R 3', value: -500 },
-    // 15: { id: 15, name: 'Black 3', abbreviation: 'B 3', value: 0 },
-}
-
-const data = {
-    rounds: {
-        1: { // round 1
-            id: 1,
-            cards: { 
-                1: { // card 1
-                    id: 1, teams: { // teams
-                        1: { canasta: 'natural', loose: 1, remaining: 1 },
-                        2: { canasta: 'unnatural', loose: 1, remaining: 1 }
-                    }
-                },
-                2: { // card 1
-                    id: 2, teams: { // teams
-                        1: { canasta: 'natural', loose: 1, remaining: 1 },
-                        2: { canasta: 'unnatural', loose: 1, remaining: 1 }
-                    }
-                },
-                3: { // card 1
-                    id: 3, teams: { // teams
-                        1: { canasta: 'natural', loose: 1, remaining: 1 },
-                        2: { canasta: 'unnatural', loose: 1, remaining: 1 }
-                    }
-                },
-                4: { // card 1
-                    id: 4, teams: { // teams
-                        1: { canasta: 'natural', loose: 1, remaining: 1 },
-                        2: { canasta: 'unnatural', loose: 1, remaining: 1 }
-                    }
-                }
-            }
-        }
-    }
+    5: { id: 5, name: 'Queen', abbreviation: 'Q', value: 10 },
+    6: { id: 6, name: 'Jack', abbreviation: 'J', value: 10 },
+    7: { id: 7, name: '10', abbreviation: '10', value: 10 },
+    8: { id: 8, name: '9', abbreviation: '9', value: 10 },
+    9: { id: 9, name: '8', abbreviation: '8', value: 10 },
+    10: { id: 10, name: '7', abbreviation: '7', value: 5 },
+    11: { id: 11, name: '6', abbreviation: '6', value: 5 },
+    12: { id: 12, name: '5', abbreviation: '5', value: 5 },
+    13: { id: 13, name: '4', abbreviation: '4', value: 5 },
+    14: { id: 14, name: 'Red 3', abbreviation: 'R 3', value: -500 },
+    15: { id: 15, name: 'Black 3', abbreviation: 'B 3', value: 0 },
 }
 
 const Score = {
@@ -123,14 +89,14 @@ export default new Vuex.Store({
             teams: [{ id: 1, name: 'Team 1' }, { id: 2, name: 'Team 2' }],
             roundMax: 4,
             rounds: [],
-            currentRound: 1,
+            currentRound: 0,
             ended: false
         },
         teams: {
             1: { id: 1, name: 'Team 1', color: 'red' },
             2: { id: 2, name: 'Team 2', color: 'blue' }
         },
-        rounds: data.rounds,
+        rounds: {},
         options: {
             showScoreColumn: true,
             showFullCardName: false
@@ -206,8 +172,8 @@ export default new Vuex.Store({
         newRound (state) {
             const roundId = state.game.currentRound + 1
             const round = { id: roundId, cards: {} }
-            let cardKeys = Object.keys(clone(state.cards))
-            let teamKeys = Object.keys(clone(state.teams))
+            let cardKeys = Object.keys(state.cards)
+            let teamKeys = Object.keys(state.teams)
             const cardModel = {
                 canasta: null,
                 loose: 0,
@@ -228,10 +194,9 @@ export default new Vuex.Store({
                 }
             }
 
-            console.log(round)
-
-            // set new round object
-            Vue.set(state.rounds, roundId, round)
+            let rounds = state.rounds
+            rounds[roundId] = round
+            state.rounds = JSON.parse(JSON.stringify(rounds))
             
             // set the new current round
             state.game.currentRound = roundId
