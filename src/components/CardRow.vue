@@ -6,14 +6,15 @@
                 size="sm"
                 v-model="canasta"
                 :options="options"
+                :disabled="disabled"
                 class="nu-select"
             ></b-form-select>
         </td>
         <td>
-            <b-form-input type="number" size="sm" min="0" step="1" v-model="loose"></b-form-input>
+            <b-form-input type="number" size="sm" min="0" step="1" v-model="loose" :disabled="disabled"></b-form-input>
         </td>
         <td>
-            <b-form-input type="number" size="sm" min="0" step="1" v-model="remaining"></b-form-input>
+            <b-form-input type="number" size="sm" min="0" step="1" v-model="remaining" :disabled="disabledRemaining"></b-form-input>
         </td>
         <td v-if="showScoreColumn">
             <!-- <pre><code>{{ this.cardValues }}</code></pre> -->
@@ -36,7 +37,8 @@ export default {
     },
     data () {
         return {
-            options: [{ text: 'None', value: null }, { text: 'Natural', value: 'natural'}, { text: 'Unnatural', value: 'unnatural'}]
+            options: [{ text: 'None', value: null }, { text: 'Natural', value: 'natural'}, { text: 'Unnatural', value: 'unnatural'}],
+            disabledIds: [14, 15]
         }
     },
     computed: {
@@ -81,6 +83,13 @@ export default {
                 "badge-success": this.score > 0,
                 "badge-light": this.score == 0
             }
+        },
+        disabled () {
+            // for canastas and loose
+            return this.disabledIds.includes(this.card.id)
+        },
+        disabledRemaining () {
+            return this.card.value == 0
         },
         showScoreColumn () {
             return this.$store.state.options.showScoreColumn;
