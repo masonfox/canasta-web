@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Score from '@/score'
+import Storage from '@/storage'
 
 Vue.use(Vuex)
 
@@ -22,7 +23,7 @@ let cards = {
     15: { id: 15, name: 'Black 3', abbreviation: 'B 3', value: 0 },
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         game: {
             teams: [{ id: 1, name: 'Team 1' }, { id: 2, name: 'Team 2' }],
@@ -106,13 +107,16 @@ export default new Vuex.Store({
     mutations: {
         toggleScoreColumn (state) {
             state.options.showScoreColumn = !state.options.showScoreColumn
+            saveState()
         },
         toggleFullCardName (state) {
             state.options.showFullCardName = !state.options.showFullCardName
+            saveState()
         },
         setRoundCardValue (state, payload) {
             if (payload.type !== "canasta") { payload.val = Number(payload.val) }
             state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = payload.val
+            saveState()
         },
         newRound (state) {
             const roundId = state.game.currentRound + 1
@@ -146,14 +150,25 @@ export default new Vuex.Store({
             
             // set the new current round
             state.game.currentRound = roundId
+
+            saveState()
+        },
+        resetFromStorage (state) {
+            let { game, rounds, options, teams, cards } = Storage.get('state')
+            state.game = game
+            state.rounds = rounds
+            state.options = options
+            state.teams = teams
+            state.cards = cards
         },
         endGame (state) {
             state.game.ended = true
         }
-    },
-    actions: {
-        completeRound () {
-
-        }
     }
 })
+
+function saveState () {
+    Storage.set('state', store.state)
+}
+
+export default store
