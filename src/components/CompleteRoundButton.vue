@@ -1,5 +1,5 @@
 <template>
-  <b-button size="sm" variant="success" v-b-modal="'round-completed-modal'" :disabled="disabled">{{ buttonText }}</b-button>
+  <b-button size="sm" :variant="buttonVariant" v-b-modal="'round-completed-modal'" :disabled="disabled">{{ buttonText }}</b-button>
 </template>
 
 <script>
@@ -10,8 +10,15 @@ export default {
             // store logic for validating a round
             return false;
         },
+        lastRound () {
+            let { currentRound, roundMax } = this.$store.state.game
+            return currentRound == roundMax
+        },
+        buttonVariant () {
+            return (this.lastRound) ? "success" : "primary"
+        },
         buttonText () {
-            return 'Complete Round'
+            return (this.lastRound) ? "Complete Game" : "Complete Round"
         }
     }
 }
