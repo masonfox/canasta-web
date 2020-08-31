@@ -51,32 +51,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.round-table:last-of-type {
-    border-left: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.round-table {
-    
-    &:first-child {
-        padding-right: 0 !important;
-    }
-
-    &:last-child {
-        padding-left: 0 !important;
-    }
-
-    .table {
-        margin-bottom: 0;
-    }
-
-    .nu-select {
-        width: 6.25rem;
-    }
-
-    input.form-control {
-        width: 3.65rem;
-    }
-}
-</style>

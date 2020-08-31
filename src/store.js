@@ -186,6 +186,9 @@ const store = new Vuex.Store({
         },
         endGame (state) {
             state.game.ended = true
+        },
+        saveState () {
+            saveState()
         }
     },
     actions: {
