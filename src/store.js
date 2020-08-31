@@ -73,6 +73,34 @@ const store = new Vuex.Store({
 
             return Score.round(final)
         },
+        getRoundResults: (state, getters) => (roundId) => {
+            let teams = state.teams
+            let final = []
+
+            for (const key in teams) {
+                const team = teams[key];
+
+                let { total } = getters.getRoundResultsByTeam(roundId, team.id)
+
+                console.log(total)
+
+                final.push({
+                    teamId: team.id,
+                    total
+                })
+            }
+
+            return final 
+        },
+        wonRound: (state, getters) => (roundId, teamId) => {
+            let scores = getters.getRoundResults(roundId)
+
+            scores.sort((a, b) => {
+                return b.total - a.total
+            })
+
+            return scores[0].teamId == teamId
+        },
         getGameResultsByTeam: (state, getters) => (teamId) => {
             let rounds = state.rounds
             let final = 0
@@ -88,13 +116,6 @@ const store = new Vuex.Store({
         getRoundObject: (state) => (roundId) => {
             return state.rounds[roundId]
         },
-        // whoWonRound: (state, getters) => () => {
-        //     let teams = 
-        //     let result = []
-
-        //     return result
-        // },
-        // getGameScore
         currentRound: (state) => {
             return state.rounds[state.game.currentRound]
         },

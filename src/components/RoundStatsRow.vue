@@ -11,8 +11,7 @@ export default {
             return this.$store.getters.getRoundResultsByTeam(this.round.id, this.team.id)
         },
         won () {
-            // return this.$store.getters.whoWonRound(this.round.id, this.team.id)
-            return true
+            return this.$store.getters.wonRound(this.round.id, this.team.id)
         },
         classObject () {
             return {
