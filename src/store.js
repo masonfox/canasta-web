@@ -135,8 +135,17 @@ export default new Vuex.Store({
 
             return Score.round(final)
         },
-        getRoundScore: (state, getters) => (roundId, teamId) => {
-            return getters.getRoundResultsByTeam(roundId, teamId)
+        getGameResultsByTeam: (state, getters) => (teamId) => {
+            let rounds = state.rounds
+            let final = 0
+
+            for (const key in rounds) {
+                const round = rounds[key];
+                let { total } = getters.getRoundResultsByTeam(round.id, teamId)
+                final += total
+            }
+
+            return final
         },
         getRoundObject: (state) => (roundId) => {
             return state.rounds[roundId]
@@ -153,9 +162,6 @@ export default new Vuex.Store({
         },
         nextRoundNumber: (state) => {
             return (state.game.currentRound !== state.game.roundMax) ? state.game.currentRound + 1 : null;
-        },
-        scoreCard: () => (payload) => {
-            console.log(payload)
         }
     },
     mutations: {
@@ -194,6 +200,7 @@ export default new Vuex.Store({
                 }
             }
 
+            // clone and create new object
             let rounds = state.rounds
             rounds[roundId] = round
             state.rounds = JSON.parse(JSON.stringify(rounds))

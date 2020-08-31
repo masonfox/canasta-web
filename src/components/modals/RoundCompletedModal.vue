@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         score (teamId) {
-            return this.$store.getters.getRoundScore(this.currentRoundNumber, teamId).total
+            return this.$store.getters.getRoundResultsByTeam(this.currentRoundNumber, teamId).total
         },
         handleOk() {
             console.log(this.nextRoundNumber)
