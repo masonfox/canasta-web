@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Score from '@/score'
-// const clone = require('lodash/cloneDeep')
-// import Game from '@/models/game'
-// import Round from '@/models/round'
-// import Card from '@/models/card'
 
 Vue.use(Vuex)
 
