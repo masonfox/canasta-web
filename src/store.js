@@ -26,9 +26,7 @@ let cards = {
 const store = new Vuex.Store({
     state: {
         game: {
-            teams: [{ id: 1, name: 'Team 1' }, { id: 2, name: 'Team 2' }],
             roundMax: 4,
-            rounds: [],
             currentRound: 0,
             ended: false
         },
@@ -161,8 +159,18 @@ const store = new Vuex.Store({
             state.teams = teams
             state.cards = cards
         },
+        clearRounds (state) {
+            state.rounds = {}
+            state.game.currentRound = 0
+        },
         endGame (state) {
             state.game.ended = true
+        }
+    },
+    actions: {
+        newGame ({ commit }) {
+            commit('clearRounds')
+            commit('newRound')
         }
     }
 })
