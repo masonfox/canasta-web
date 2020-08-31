@@ -52,3 +52,10 @@
         border-bottom: 1px solid #ddd;
     }
 }
+
+// nav
+@include media-breakpoint-up(sm) {
+    .nav-container {
+        padding-left: .8rem !important;
+    }
+}
