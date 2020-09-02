@@ -28,7 +28,8 @@ const store = new Vuex.Store({
         game: {
             roundMax: 4,
             currentRound: 0,
-            ended: false
+            ended: false,
+            started: false
         },
         teams: {
             1: { id: 1, name: 'Team 1', color: 'red' },
@@ -90,7 +91,7 @@ const store = new Vuex.Store({
                 })
             }
 
-            return final 
+            return final
         },
         wonRound: (state, getters) => (roundId, teamId) => {
             let scores = getters.getRoundResults(roundId)
@@ -124,20 +125,24 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
-        toggleScoreColumn (state) {
+        toggleScoreColumn(state) {
             state.options.showScoreColumn = !state.options.showScoreColumn
             saveState()
         },
-        toggleFullCardName (state) {
+        toggleFullCardName(state) {
             state.options.showFullCardName = !state.options.showFullCardName
             saveState()
         },
-        setRoundCardValue (state, payload) {
+        setRoundCardValue(state, payload) {
             if (payload.type !== "canasta") { payload.val = Number(payload.val) }
+            // update values in the store
             state.rounds[state.game.currentRound].cards[payload.cardId].teams[payload.teamId][payload.type] = payload.val
+            // officially mark the game as started
+            if (state.game.started == false) state.game.started = true
+            // persist state changes to store
             saveState()
         },
-        newRound (state) {
+        newRound(state) {
             const roundId = state.game.currentRound + 1
             const round = { id: roundId, cards: {} }
             let cardKeys = Object.keys(state.cards)
@@ -166,13 +171,13 @@ const store = new Vuex.Store({
             let rounds = state.rounds
             rounds[roundId] = round
             state.rounds = JSON.parse(JSON.stringify(rounds))
-            
+
             // set the new current round
             state.game.currentRound = roundId
 
             saveState()
         },
-        resetFromStorage (state) {
+        resetFromStorage(state) {
             let { game, rounds, options, teams, cards } = Storage.get('state')
             state.game = game
             state.rounds = rounds
@@ -180,26 +185,27 @@ const store = new Vuex.Store({
             state.teams = teams
             state.cards = cards
         },
-        clearRounds (state) {
+        clearRounds(state) {
             state.rounds = {}
             state.game.currentRound = 0
+            state.game.started = false
         },
-        endGame (state) {
+        endGame(state) {
             state.game.ended = true
         },
-        saveState () {
+        saveState() {
             saveState()
         }
     },
     actions: {
-        newGame ({ commit }) {
+        newGame({ commit }) {
             commit('clearRounds')
             commit('newRound')
         }
     }
 })
 
-function saveState () {
+function saveState() {
     Storage.set('state', store.state)
 }
 
