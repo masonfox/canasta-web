@@ -8,7 +8,7 @@
             label-for="teams"
             class="team-group"
           >
-            <b-alert show variant="warning" class="alert-sm">Adding a new team will <b>reset the game</b></b-alert>
+            <b-alert :show="gameStarted" variant="warning" class="alert-sm">Adding a new team will <b>reset the game</b></b-alert>
             <TeamInputItem v-for="(team, index) in teams" :key="team.id" :index="index" :team="team" />
             <NewTeamInput />
           </b-form-group>
@@ -34,6 +34,9 @@ export default {
     computed: {
       teams () {
         return this.$store.state.teams
+      },
+      gameStarted () {
+        return this.$store.state.game.started
       }
     },
     methods: {
