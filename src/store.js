@@ -142,6 +142,22 @@ const store = new Vuex.Store({
             // persist state changes to store
             saveState()
         },
+        addTeam (state, payload) {
+            let existingKeys = Object.keys(state.teams).sort((a,b) => { a-b })
+            let finalArrayItem = Number(existingKeys.slice(-1)[0])
+            let id = finalArrayItem + 1
+            let { name, color } = payload
+            Vue.set(state.teams, id, {
+                id,
+                name,
+                color
+            })
+            saveState()
+        },
+        deleteTeam (state, teamId) {
+            Vue.delete(state.teams, teamId)
+            saveState()
+        },
         newRound(state) {
             const roundId = state.game.currentRound + 1
             const round = { id: roundId, cards: {} }
