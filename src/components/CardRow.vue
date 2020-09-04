@@ -60,7 +60,7 @@ export default {
             },
             set (val) {
                 this.setRoundCardValue("canasta", val)
-                if (this.loose == 0) {
+                if (val == "natural" && this.loose == 0) {
                     this.loose = 7
                 }
             }
