@@ -64,3 +64,9 @@
 .alert-sm {
     padding: .35rem 1rem;
 }
+
+// form
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    background: none !important;
+    padding-right: 0.5rem;
+}

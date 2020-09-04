@@ -11,7 +11,7 @@
             ></b-form-select>
         </td>
         <td>
-            <b-form-input type="number" size="sm" min="0" step="1" v-model="loose" :disabled="disabled"></b-form-input>
+            <b-form-input type="number" size="sm" min="0" step="1" v-model="loose" :class="{ 'is-invalid': looseCanastaError }" :disabled="disabled"></b-form-input>
         </td>
         <td>
             <b-form-input type="number" size="sm" min="0" step="1" v-model="remaining" :disabled="disabledRemaining"></b-form-input>
@@ -44,6 +44,10 @@ export default {
         currentRound () {
             return this.$store.state.game.currentRound
         },
+        looseCanastaError () {
+            // display an error if the loose value isn't at least equal to 7 if they claim a canasta
+            return this.canasta == "natural" && this.loose < 7
+        },
         cardValues () {
             return this.$store.getters.getCardRoundResults(this.currentRound, this.card.id, this.team.id)
         },
@@ -56,6 +60,9 @@ export default {
             },
             set (val) {
                 this.setRoundCardValue("canasta", val)
+                if (this.loose == 0) {
+                    this.loose = 7
+                }
             }
         },
         loose: {
