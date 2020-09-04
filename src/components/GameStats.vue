@@ -13,7 +13,7 @@
         <b-card-body class="row py-0 px-0">
           <b-col class="game-stats-item" v-for="team in teams" :key="team.id">
             <h5 class="title">{{ team.name }}</h5>
-            <p class="score">{{ gameScore(team.id) }}</p>
+            <p class="score">{{ gameScore(team.id) | formatNumber }}</p>
           </b-col>
         </b-card-body>
       </b-card>

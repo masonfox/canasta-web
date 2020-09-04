@@ -16,7 +16,7 @@ export default {
             return this.round.id == this.currentRoundId
         },
         score () {
-            return (this.isActiveRound) ? this.defaultVal : this.roundScore.total
+            return (this.isActiveRound) ? this.defaultVal : this.$options.filters.formatNumber(this.roundScore.total)
         },
         currentRoundId () {
             return this.$store.getters.currentRound.id

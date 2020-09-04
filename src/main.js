@@ -4,6 +4,7 @@ import App from './App.vue'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import './scss/styles.scss'
 import Storage from '@/storage'
+require('@/filters')
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)

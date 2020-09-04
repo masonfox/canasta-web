@@ -17,7 +17,7 @@
             <b-form-input type="number" size="sm" min="0" step="1" v-model="remaining" :disabled="disabledRemaining"></b-form-input>
         </td>
         <td v-if="showScoreColumn">
-            <span :class="badge">{{ score }}</span>
+            <span :class="badge">{{ score | formatNumber }}</span>
         </td>
     </tr>
 </template>
