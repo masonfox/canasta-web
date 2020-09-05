@@ -1,12 +1,12 @@
 <template>
-  <b-modal id="round-completed-modal" title="Round Completed?" @ok="handleOk" @cancel="handleCancel" :ok-disabled="wentOutTeamId == null">
+  <b-modal id="round-completed-modal" title="Round Completed?" header-bg-variant="light" @ok="handleOk" @cancel="handleCancel" :ok-disabled="wentOutTeamId == null">
     <div class="mb-4">
         <h4>Who went out?</h4>
         <p>An additional 100 points is added</p>
         <b-form-select :options="teamSelectOptions" v-model="wentOutTeamId"></b-form-select>
     </div>
     <hr>
-    <h4 class="mb-3">Review Scores</h4>
+    <h4 class="mb-1">Review Scores</h4>
     <b-row>
         <b-col sm="4" v-for="team in teams" :key="team.id">
             <div class="round-score-box">
