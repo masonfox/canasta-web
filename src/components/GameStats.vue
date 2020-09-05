@@ -11,56 +11,24 @@
             </div>
         </b-card-header>
         <b-card-body class="row py-0 px-0">
-          <b-col class="game-stats-item" v-for="team in teams" :key="team.id">
-            <h5 class="title">{{ team.name }}</h5>
-            <p class="score">{{ gameScore(team.id) | formatNumber }}</p>
-          </b-col>
+          <GameStatsItem v-for="team in teams" :team="team" :key="team.id" />
         </b-card-body>
       </b-card>
   </b-col>
 </template>
 
 <script>
+import GameStatsItem from '@/components/GameStatsItem'
+
 export default {
     name: 'GameStats',
+    components: {
+      GameStatsItem
+    },
     computed: {
       teams () {
         return this.$store.state.teams
       }
-    },
-    methods: {
-      gameScore(teamId) {
-        return this.$store.getters.getGameResultsByTeam(teamId)
-      }
     }
-}
+  }
 </script>
-
-<style lang="scss">
-.game-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.game-stats-card{
-  padding: 0 !important;
-}
-
-.game-stats-item {
-  text-align: center;
-  padding: 1rem;
-
-  .title {
-    margin-bottom: .2rem;
-  }
-
-  .score {
-    margin: 0;
-  }
-
-  &:last-child {
-    border-left: 1px solid #ddd;
-  }
-}
-</style>

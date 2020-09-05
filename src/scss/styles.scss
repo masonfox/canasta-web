@@ -78,3 +78,35 @@
     background: none !important;
     padding-right: 0.5rem;
 }
+
+// custom
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-stats-card{
+  padding: 0 !important;
+}
+
+.game-stats-item {
+  text-align: center;
+  padding: 1rem;
+
+  .title {
+    margin-bottom: .2rem;
+  }
+
+  .score {
+    margin: 0;
+  }
+
+  .score p {
+      font-weight: bold;
+  }
+
+  &:last-child {
+    border-left: 1px solid #ddd;
+  }
+}

@@ -38,7 +38,7 @@ export default {
         },
         classObject () {
             return {
-                'font-weight-bold': true,
+                'score': true,
                 'text-success': this.won,
                 'text-danger': !this.won,
                 'text-dark': this.isActiveRound && !this.gameEnded
