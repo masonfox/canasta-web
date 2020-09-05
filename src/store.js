@@ -39,12 +39,13 @@ const store = new Vuex.Store({
             return Score.card(getters.getCardById(cardId), canasta, loose, remaining)
         },
         getRoundResultsByTeam: (state, getters) => (roundId, teamId) => {
-            let cards = getters.getRoundObject(roundId).cards
+            let round = getters.getRoundObject(roundId)
+            let applyWentOutBonus = round.wentOutTeamId == teamId
             let final = []
 
             // loop through cards to find each individual cards to build a score object
-            for (const cardId in cards) {
-                let cardObject = cards[cardId]
+            for (const cardId in round.cards) {
+                let cardObject = round.cards[cardId]
                 let { canasta, loose, remaining } = cardObject.teams[teamId]
                 let scoreObject = {
                     card: getters.getCardById(cardObject.id),
@@ -55,7 +56,7 @@ const store = new Vuex.Store({
                 final.push(scoreObject)
             }
 
-            return Score.round(final)
+            return Score.round(final, applyWentOutBonus)
         },
         getRoundResults: (state, getters) => (roundId) => {
             let teams = state.teams
@@ -132,6 +133,10 @@ const store = new Vuex.Store({
             // persist state changes to store
             saveState()
         },
+        setRoundWentOutTeamId (state, payload) {
+            let { roundId, val } = payload
+            Vue.set(state.rounds[roundId], 'wentOutTeamId', val)
+        },
         addTeam (state, payload) {
             let existingKeys = Object.keys(state.teams).sort((a,b) => { a-b })
             let finalArrayItem = Number(existingKeys.slice(-1)[0])
@@ -150,7 +155,7 @@ const store = new Vuex.Store({
         },
         newRound(state) {
             const roundId = state.game.currentRound + 1
-            const round = { id: roundId, cards: {} }
+            const round = { id: roundId, cards: {}, wentOutTeamId: null }
             let cardKeys = Object.keys(state.cards)
             let teamKeys = Object.keys(state.teams)
             const cardModel = {

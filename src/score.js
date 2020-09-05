@@ -31,14 +31,16 @@ const Score = {
             total
         }
     },
-    round (scoreArray) {
+    round (scoreArray, applyWentOutBonus) {
         let score = {
             canasta: 0,
             loose: 0,
             remaining: 0,
+            wentOutBonus: 0,
             total: 0
         }
 
+        // apply scores for individual card canstas, loose, and remaining cards
         for (let index = 0; index < scoreArray.length; index++) {
             const item = scoreArray[index];
 
@@ -50,6 +52,12 @@ const Score = {
             score.loose += cardScore.loose
             score.remaining += cardScore.remaining
             score.total += cardScore.total
+        }
+
+        // handle out bonus
+        if (applyWentOutBonus) {
+            score.wentOutBonus = 100
+            score.total += score.wentOutBonus
         }
 
         return score

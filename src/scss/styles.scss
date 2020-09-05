@@ -53,6 +53,14 @@
     }
 }
 
+.round-score-box {
+    border: 1px solid $gray-300;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 3px;
+    background: $light;
+}
+
 // nav
 @include media-breakpoint-up(sm) {
     .nav-container {
