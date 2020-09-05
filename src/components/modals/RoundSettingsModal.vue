@@ -1,5 +1,5 @@
 <template>
-  <b-modal size="sm" id="round-settings" title="Round Settings">
+  <b-modal size="sm" id="round-settings" header-bg-variant="light" title="Round Settings">
     <p class="">Adjust round settings:</p>
     <table class="table table-borderless settings-table">
         <tr>
