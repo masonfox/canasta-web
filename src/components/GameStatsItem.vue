@@ -1,7 +1,9 @@
 <template>
-    <b-col class="game-stats-item">
-        <h5 class="title">{{ team.name }}</h5>
-        <p :class="classObject">{{ score | formatNumber }}</p>
+    <b-col sm="6" class="game-stats-container">
+        <div class="game-stats-item">
+            <h5 class="title">{{ team.name }}</h5>
+            <p :class="classObject">{{ score | formatNumber }}</p>
+        </div>
     </b-col>
 </template>
 
