@@ -103,8 +103,15 @@ const store = new Vuex.Store({
             return scores[0].teamId == teamId
         },
         getGameResultsByTeam: (state, getters) => (teamId) => {
-            let rounds = state.rounds
+            // copy and clean
+            let rounds = JSON.parse(JSON.stringify(state.rounds))
             let final = 0
+
+            // remove the current round from the game total
+            // BROKEN
+            // if (!state.game.ended) {
+            //     delete rounds[getters.currentRound.id]
+            // }
 
             for (const key in rounds) {
                 const round = rounds[key];
