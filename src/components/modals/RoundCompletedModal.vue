@@ -29,13 +29,13 @@ export default {
             return this.$store.getters.getRoundResultsByTeam(this.currentRoundNumber, teamId).total
         },
         handleOk() {
-            console.log(this.nextRoundNumber)
             if (this.nextRoundNumber !== null) {
-                console.log('HIT')
+                // start a new round
                 this.$store.commit('newRound')
             } else {
-                this.$store.commit('endGame')
-                // launch end game modal
+                // finish
+                this.$bvModal.hide('round-completed-modal')
+                this.$bvModal.show('game-completed-modal')
             }
         }
     }
