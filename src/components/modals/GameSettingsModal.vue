@@ -1,5 +1,5 @@
 <template>
-  <b-modal size="xl" id="game-settings" title="Game Settings" button-title="Save" @ok="okHandler">
+  <b-modal size="xl" id="game-settings" header-bg-variant="light" title="Game Settings" button-title="Save" @ok="okHandler">
     <b-container>
       <b-row>
         <b-col lg="6">

@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="game-completed-modal" title="Game Completed!" @ok="handleOk">
+  <b-modal id="game-completed-modal" header-bg-variant="light" title="Game Completed!" @ok="handleOk">
     <p>Please confirm the following results:</p>
     <b-row>
         <b-col>
