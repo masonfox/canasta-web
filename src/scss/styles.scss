@@ -14,19 +14,20 @@
     }
 }
 
-.round-table:last-of-type {
-    border-left: 1px solid rgba(0, 0, 0, 0.125);
-}
-
 .round-table {
 
-    @include media-breakpoint-up(md) {
-        &:first-child {
+    @include media-breakpoint-up(lg) {
+        &:nth-child(odd) {
             padding-right: 0 !important;
+
+            &:last-of-type {
+                padding-right: 15px !important;
+            }
         }
 
-        &:last-child {
+        &:nth-child(even) {
             padding-left: 0 !important;
+            border-left: 1px solid $gray-200;
         }
     }
     
