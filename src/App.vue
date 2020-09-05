@@ -23,6 +23,6 @@ export default {
 
 <style lang="scss">
   #app-wrapper {
-    padding: 2.5rem 0;
+    padding: 2rem 0;
   }
 </style>
