@@ -15,8 +15,17 @@ export default {
         isActiveRound () {
             return this.round.id == this.currentRoundId
         },
+        isMaxRound () {
+            return this.round.id == this.$store.state.game.roundMax
+        },
+        gameEnded () {
+            return this.$store.state.game.ended
+        },
+        isActiveRoundOrEnded () {
+            return !this.isActiveRound || this.isMaxRound && this.gameEnded
+        },
         score () {
-            return (this.isActiveRound) ? this.defaultVal : this.$options.filters.formatNumber(this.roundScore.total)
+            return (this.isActiveRoundOrEnded) ? this.$options.filters.formatNumber(this.roundScore.total) : this.defaultVal
         },
         currentRoundId () {
             return this.$store.getters.currentRound.id
@@ -30,9 +39,9 @@ export default {
         classObject () {
             return {
                 'font-weight-bold': true,
-                'text-success': this.won && !this.isActiveRound,
-                'text-danger': !this.won && !this.isActiveRound,
-                'text-dark': this.isActiveRound
+                'text-success': this.won,
+                'text-danger': !this.won,
+                'text-dark': this.isActiveRound && !this.gameEnded
             }
         }
     }

@@ -90,10 +90,9 @@ const store = new Vuex.Store({
             let final = 0
 
             // remove the current round from the game total
-            // BROKEN
-            // if (!state.game.ended) {
-            //     delete rounds[getters.currentRound.id]
-            // }
+            if (!state.game.ended) {
+                delete rounds[getters.currentRound.id]
+            }
 
             for (const key in rounds) {
                 const round = rounds[key];
@@ -134,6 +133,7 @@ const store = new Vuex.Store({
         setRoundWentOutTeamId (state, payload) {
             let { roundId, val } = payload
             Vue.set(state.rounds[roundId], 'wentOutTeamId', val)
+            saveState()
         },
         addTeam (state, payload) {
             let existingKeys = Object.keys(state.teams).sort((a,b) => { a-b })
@@ -198,6 +198,7 @@ const store = new Vuex.Store({
             state.rounds = {}
             state.game.currentRound = 0
             state.game.started = false
+            state.game.ended = false
         },
         endGame(state) {
             state.game.ended = true
