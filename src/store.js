@@ -67,8 +67,6 @@ const store = new Vuex.Store({
 
                 let { total } = getters.getRoundResultsByTeam(roundId, team.id)
 
-                console.log(total)
-
                 final.push({
                     teamId: team.id,
                     total
