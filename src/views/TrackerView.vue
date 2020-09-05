@@ -14,14 +14,10 @@
             <RoundTable v-for="team in teams" :team="team" :key="team.id" />
         </b-card-body>
       </b-card>
-      <RoundCompletedModal />
-      <RoundSettingsModal />
   </b-container>
 </template>
 
 <script>
-import RoundCompletedModal from '@/components/modals/RoundCompletedModal'
-import RoundSettingsModal from '@/components/modals/RoundSettingsModal'
 import CompleteRoundButton from '@/components/CompleteRoundButton'
 import RoundTable from '@/components/RoundTable'
 
@@ -39,9 +35,7 @@ export default {
         }
     },
     components: {
-        RoundCompletedModal,
         CompleteRoundButton,
-        RoundSettingsModal,
         RoundTable
     },
     methods: {}
