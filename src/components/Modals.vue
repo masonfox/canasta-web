@@ -6,6 +6,7 @@
         <RoundCompletedModal />
         <GameCompletedModal />
         <RoundSettingsModal />
+        <RoundStatsModal />
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import ConfirmNewGame from './modals/ConfirmNewGame'
 import RoundCompletedModal from '@/components/modals/RoundCompletedModal'
 import RoundSettingsModal from '@/components/modals/RoundSettingsModal'
 import GameCompletedModal from '@/components/modals/GameCompletedModal'
+import RoundStatsModal from '@/components/modals/RoundStatsModal'
 
 export default {
     name: 'modals',
@@ -23,7 +25,8 @@ export default {
         ConfirmNewGame,
         RoundCompletedModal,
         RoundSettingsModal,
-        GameCompletedModal
+        GameCompletedModal,
+        RoundStatsModal
     }
 }
 </script>
