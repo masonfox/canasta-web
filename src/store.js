@@ -103,25 +103,32 @@ const store = new Vuex.Store({
             return final
         },
         getGameResults (state, getters) {
-            //let rounds = state.rounds
             let teams = state.teams
             let final = []
 
             for (const key in teams) {
                 let team = teams[key]
 
-                let { total } = getters.getGameResultsByTeam(team.id)
+                let total = getters.getGameResultsByTeam(team.id)
 
                 final.push({
                     teamId: team.id,
                     total
                 })
-
             }
+
+            return final
         },
-        // isWinningGame: (state, getters) => (teamId) => {
-        //     return 
-        // },
+        isWinningGame: (state, getters) => (teamId) => {
+            let gameResults = getters.getGameResults
+
+            // sort array
+            gameResults.sort((a, b) => {
+                return b.total - a.total
+            })
+
+            return gameResults[0].teamId == teamId
+        },
         getRoundObject: (state) => (roundId) => {
             return state.rounds[roundId]
         },

@@ -12,6 +12,11 @@
     th {
         border-bottom: 0 !important;
     }
+
+    .score {
+        font-weight: 600;
+        text-align: center;
+    }
 }
 
 .round-table {
@@ -97,20 +102,24 @@
     // last two items
     &:nth-last-of-type(-n+2) {
         .game-stats-item {
-            border-bottom: none !important;
+            // border-bottom: none !important;
         }
     }
 
     &:nth-child(even) {
-        padding-left: 0;
-        
         .game-stats-item {
             border-left: 1px solid $gray-200;
         }
     }
 
-    &:nth-child(odd) {
-        padding-right: 0;
+    @include media-breakpoint-up(sm) {
+        &:nth-child(odd) {
+            padding-right: 0;
+        }
+
+        &:nth-child(even) {
+            padding-left: 0;
+        }
     }
 }
 
@@ -125,9 +134,6 @@
 
   .score {
     margin: 0;
-  }
-
-  .score p {
-      font-weight: bold;
+    font-weight: 600;
   }
 }

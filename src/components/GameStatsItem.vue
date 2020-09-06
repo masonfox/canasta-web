@@ -20,15 +20,15 @@ export default {
         score () {
             return this.$store.getters.getGameResultsByTeam(this.team.id)
         },
-        winning () {
-            return this.$store.getters.isWinning(this.team.id)
+        isWinningGame () {
+            return this.$store.getters.isWinningGame(this.team.id)
         },
         classObject () {
             return {
                 'score': true,
-                'text-success': false,
-                'text-danger': false,
-                'text-dark': true
+                'text-success': this.isWinningGame,
+                'text-danger': !this.isWinningGame,
+                'text-dark': false
             }
         }
     }

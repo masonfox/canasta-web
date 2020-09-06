@@ -5,7 +5,7 @@
           <thead>
             <tr>
                 <th scope="col">Round #</th>
-                <th class="text-left" scope="col" v-for="team in teams" :key="team.id">{{ team.name }}</th>
+                <th class="text-center" scope="col" v-for="team in teams" :key="team.id">{{ team.name }}</th>
             </tr>
           </thead>
           <tbody>
