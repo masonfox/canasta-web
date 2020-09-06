@@ -2,7 +2,7 @@
   <b-col class="round-table">
     <table class="table table-hover">
         <thead>
-            <th colspan="5" class="text-light text-center py-1 border-0">
+            <th colspan="5" class="text-light text-center py-1">
                 <b-badge :style="{ background: team.color, fontSize: '15px' }">{{ team.name }}</b-badge>
             </th>
         </thead>
