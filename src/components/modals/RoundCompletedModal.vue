@@ -11,7 +11,7 @@
         <b-col sm="4" v-for="team in teams" :key="team.id">
             <div class="round-score-box">
                 <b>{{ team.name }}</b>
-                <p class="mb-0">{{ score(team.id) }}</p>
+                <p class="mb-0">{{ score(team.id) | formatNumber }}</p>
             </div>
         </b-col>
     </b-row>
