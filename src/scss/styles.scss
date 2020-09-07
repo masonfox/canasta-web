@@ -49,13 +49,27 @@
     }
 }
 
+#round-stats {
+    thead tr th:not(:first-child) {
+        text-align: center;
+    }
+
+    tbody th {
+        border-right: 1px solid $gray-200;
+    }
+
+    tr td {
+        text-align: center;
+    }
+}
+
 // modals
 .settings-table {
-    border: 1px solid #ddd;
+    border: 1px solid $gray-200;
     border-radius: 1rem !important;
     
     tr {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $gray-200;
     }
 }
 
